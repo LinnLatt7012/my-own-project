@@ -109,6 +109,9 @@ messenger-bot-webhook/
 ## Code Explanation
 
 - **`config.js`**: Loads environment variables and exports them for use throughout the app.
+```
+
+```
 - **`controllers/messageController.js`**: Contains logic for handling incoming messages and verifying the webhook.
 - **`models/messageModel.js`**: Provides utility functions, such as logging received messages.
 - **`routes/webhookRoute.js`**: Defines webhook routes and links them to controller methods.
@@ -116,3 +119,26 @@ messenger-bot-webhook/
 
 
 By following this README, you should be able to set up and run the Messenger bot webhook project
+
+## [Update]!!!
+
+(31-10-2024) - Use User Name to reply back
+main code block update
+```js
+export async function getUserProfile(senderPsid) {
+    try {
+        const res = await fetch(`https://graph.facebook.com/${senderPsid}?fields=first_name,last_name&access_token=${PAGE_ACCESS_TOKEN}`);
+        if (res.ok) {
+            const profile = await res.json();
+            return profile;
+        } else {
+            console.error('Failed to fetch user profile:', res.statusText);
+            return null;
+        }
+    } catch (error) {
+        console.error('Error fetching user profile:', error);
+        return null;
+    }
+}
+```
+

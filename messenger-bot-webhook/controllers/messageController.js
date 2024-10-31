@@ -1,5 +1,5 @@
-import { logMessage } from '../models/messageModel.js';
-import { VERIFY_TOKEN,PAGE_ACCESS } from '../config.js';
+import { getUserProfile, logMessage } from '../models/messageModel.js';
+import { VERIFY_TOKEN,PAGE_ACCESS_TOKEN } from '../config.js';
 async function sendTextMessage(senderPsid, response) {
     const requestBody = {
         recipient: {
@@ -11,7 +11,7 @@ async function sendTextMessage(senderPsid, response) {
     };
 
     try {
-        const res = await fetch(`https://graph.facebook.com/v12.0/me/messages?access_token=${PAGE_ACCESS}`, {
+        const res = await fetch(`https://graph.facebook.com/v12.0/me/messages?access_token=${PAGE_ACCESS_TOKEN}`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(requestBody),
@@ -26,12 +26,15 @@ async function sendTextMessage(senderPsid, response) {
 }
 
 // Handle incoming messages
-export function handleIncomingMessage(senderPsid, message) {
+export async function handleIncomingMessage(senderPsid, message) {
     logMessage(senderPsid, message);
+    // Fetch user profile
+    const userProfile = await getUserProfile(senderPsid);
+    const userName = userProfile ? `${userProfile.first_name} ${userProfile.last_name}` : 'there';
 
     // Check if the message text is "hi" (case insensitive)
     if (message.text && message.text.toLowerCase() === 'hi') {
-        sendTextMessage(senderPsid, "Welcome! How can I help you today?");
+        sendTextMessage(senderPsid, `Welcome, ${userName}! How can I help you today?`);
     } else {
         sendTextMessage(senderPsid, "I'm here to help! Send 'hi' for a welcome message.");
     }
