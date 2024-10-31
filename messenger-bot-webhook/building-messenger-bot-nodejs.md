@@ -15,7 +15,8 @@ seo:
         src: 'https://www.hostpapa.com/blog/app/uploads/2020/07/chatbot-interaccion-1024x500-1024x500.png'
         alt: "Messenger bot webhook setup illustration"
 ---
-https://www.hostpapa.com/blog/app/uploads/2020/07/chatbot-interaccion-1024x500-1024x500.png
+
+
 ![Building a Messenger Bot Webhook with Node.js](https://www.hostpapa.com/blog/app/uploads/2020/07/chatbot-interaccion-1024x500-1024x500.png "Building a Messenger Bot Webhook with Node.js")
 
 :::main{style="color:red"}
@@ -232,12 +233,6 @@ app.listen(PORT, () => {
     console.log(`Server is listening on port ${PORT}`);
 });
 ```
-#### 7. Running the Server
-Start the server using:
-
-```bash
-node index.js
-```
 
 ### 2. Set Up Environment Variables
 
@@ -260,15 +255,11 @@ PAGE_ACCESS_TOKEN=YOUR_PAGE_ACCESS_TOKEN # Your Facebook Page Access Token
 
 ### 4. Run the Application
 
-Start the server:
-
-```bash
-node index.js
-```
+Start the server:`node index.js`
 
 ### 5. Test the Webhook on localhost
 
-you can visit to http:\\localhost:<YOUR_PORT>\webhook?hub.mode=subscribe&hub.challenge=1158201444&hub.verify_token=YOUR_VERIFY_TOKEN
+Visit `http://localhost:3000/webhook?hub.mode=subscribe&hub.challenge=1158201444&hub.verify_token=YOUR_VERIFY_TOKEN` to confirm verification.
 
 ### 6. Get Public
 
@@ -289,32 +280,16 @@ you can use ngrok or any deployment service to get public url (will use in Webho
 
 ---
 
-## Folder Structure
-
+## Folder Structure Recap
 ```plaintext
 messenger-bot-webhook/
 ├── controllers/
-│   └── messageController.js    # Controller managing request handling logic
+│   └── messageController.js    # Controller handling requests
 ├── models/
-│   └── messageModel.js         # Model for data handling and logging
+│   └── messageModel.js         # Model for data handling
 ├── routes/
-│   └── webhookRoute.js         # Route definitions for incoming requests
-├── views/
-│   └── webhookView.js          # Optional, for view logic if needed
-├── index.js                    # Entry point for the server
-└── config.js                   # Configuration file loading dotenv variables
+│   └── webhookRoute.js         # Route definitions
+├── index.js                    # Server entry point
+└── config.js                   # Config file loading .env variables
 ```
-
-## Code Explanation
-
-- **`config.js`**: Loads environment variables and exports them for use throughout the app.
-```
-
-```
-- **`controllers/messageController.js`**: Contains logic for handling incoming messages and verifying the webhook.
-- **`models/messageModel.js`**: Provides utility functions, such as logging received messages.
-- **`routes/webhookRoute.js`**: Defines webhook routes and links them to controller methods.
-- **`index.js`**: Main entry point to start the Express server and use the defined routes.
-
-
-By following this README, you should be able to set up and run the Messenger bot webhook project
+With these steps, you've set up a functional Facebook Messenger bot webhook using Node.js and Express. This bot handles incoming messages, verifies webhook requests, and responds to users, providing a scalable starting point for more complex bot features.
