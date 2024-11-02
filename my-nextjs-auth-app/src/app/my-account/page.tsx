@@ -13,7 +13,7 @@ async function page() {
     <>
       <div>This is my account page</div>
       <pre className="bg-slate-900 p-2 rounded-md">
-        {JSON.stringify(userInfo, null, 2)}
+        {JSON.stringify(session, null, 2)}
       </pre>
     </>
   );
